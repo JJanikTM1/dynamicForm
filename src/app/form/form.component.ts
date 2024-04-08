@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SubmitService } from '../submit.service';
 
 
 interface Control {
@@ -27,7 +28,6 @@ export class FormComponent {
     this.createForm()
   }
 
-
   createForm(){
     for (let key of Object.keys(this.json)){
       if(this.json[key]['type'] == 'select'){
@@ -42,11 +42,10 @@ export class FormComponent {
     }
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private ss: SubmitService) {
   }
 
   onSubmit(){
-    console.log('Form valid: ', this.form.valid);
-    console.log('Form values: ', this.form.value);
+    this.ss.submitData(this.form.value)
   }
 }
