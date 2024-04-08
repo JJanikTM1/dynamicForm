@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div *ngFor="let control of controls">
+        <label>{{ control.name }}</label>
+        <input 
+        *ngIf="control.type != 'select'"
+        [type]="control.type"
+        [formControlName]="control.name"
+        >
+        <select 
+        *ngIf="control.type == 'select'" 
+        [formControlName]="control.name"
+        >
+            <option *ngFor="let option of control.options" value="{{option}}">{{option}}</option>
+        </select>
+    </div>
+    <button type="submit">Submit</button>
+</form>
